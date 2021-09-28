@@ -293,6 +293,7 @@ class VideoControllerTest extends TestCase
 
     public function testSyncGenres()
     {
+        /** @var Collection $genres */
         $genres = factory(Genre::class, 3)->create();
         $genresId = $genres->pluck('id')->toArray();
         $categoryId = factory(Category::class)->create()->id;
