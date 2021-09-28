@@ -363,6 +363,10 @@ class VideoControllerTest extends TestCase
         /** @var \Mockery\MockInterface|\Mockery\LegacyMockInterface|Request $request */
         $request = \Mockery::mock(Request::class);
 
+        $request->shouldReceive('get')
+                ->withAnyArgs()
+                ->andReturnNull();
+
         $hasError = false;
         try {
             $controller->store($request);
@@ -408,6 +412,10 @@ class VideoControllerTest extends TestCase
         /** @var \Mockery\MockInterface|\Mockery\LegacyMockInterface|Request $request */
         $request = \Mockery::mock(Request::class);
 
+        $request->shouldReceive('get')
+                ->withAnyArgs()
+                ->andReturnNull();
+                
         $hasError = false;
 
         try {
