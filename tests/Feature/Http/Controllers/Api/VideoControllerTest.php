@@ -336,97 +336,98 @@ class VideoControllerTest extends TestCase
         ]);        
     }
 
-    public function testRollbackStore()
-    {
-        /** @var \Mockery\MockInterface|\Mockery\LegacyMockInterface|VideoController $controller */
-        $controller = \Mockery::mock(VideoController::class);
+    // TESTS MOVED FROM CONTROLLER TO VIDEO
+    // public function testRollbackStore()
+    // {
+    //     /** @var \Mockery\MockInterface|\Mockery\LegacyMockInterface|VideoController $controller */
+    //     $controller = \Mockery::mock(VideoController::class);
         
-        $controller
-            ->makePartial()
-            ->shouldAllowMockingProtectedMethods();
+    //     $controller
+    //         ->makePartial()
+    //         ->shouldAllowMockingProtectedMethods();
 
-        $controller
-            ->shouldReceive('validate')
-            ->withAnyArgs()
-            ->andReturn($this->sendData);
+    //     $controller
+    //         ->shouldReceive('validate')
+    //         ->withAnyArgs()
+    //         ->andReturn($this->sendData);
         
-        $controller
-            ->shouldReceive('rulesStore')
-            ->withAnyArgs()
-            ->andReturn([]);
+    //     $controller
+    //         ->shouldReceive('rulesStore')
+    //         ->withAnyArgs()
+    //         ->andReturn([]);
 
-        $controller
-            ->shouldReceive('handleRelations')
-            ->once()
-            ->andThrow(new TestException());
+    //     $controller
+    //         ->shouldReceive('handleRelations')
+    //         ->once()
+    //         ->andThrow(new TestException());
 
-        /** @var \Mockery\MockInterface|\Mockery\LegacyMockInterface|Request $request */
-        $request = \Mockery::mock(Request::class);
+    //     /** @var \Mockery\MockInterface|\Mockery\LegacyMockInterface|Request $request */
+    //     $request = \Mockery::mock(Request::class);
 
-        $request->shouldReceive('get')
-                ->withAnyArgs()
-                ->andReturnNull();
+    //     $request->shouldReceive('get')
+    //             ->withAnyArgs()
+    //             ->andReturnNull();
 
-        $hasError = false;
-        try {
-            $controller->store($request);
-        } catch (TestException $exception) {
-            $this->assertCount(1, Video::all());
-            $hasError = true;
-        }
+    //     $hasError = false;
+    //     try {
+    //         $controller->store($request);
+    //     } catch (TestException $exception) {
+    //         $this->assertCount(1, Video::all());
+    //         $hasError = true;
+    //     }
 
-        $this->assertTrue($hasError);
-    }
+    //     $this->assertTrue($hasError);
+    // }
 
-    public function testRollbackUpdate()
-    {
-        /** @var \Mockery\MockInterface|\Mockery\LegacyMockInterface|VideoController $controller */
-        $controller = \Mockery::mock(VideoController::class);
+    // public function testRollbackUpdate()
+    // {
+    //     /** @var \Mockery\MockInterface|\Mockery\LegacyMockInterface|VideoController $controller */
+    //     $controller = \Mockery::mock(VideoController::class);
         
-        $controller
-            ->makePartial()
-            ->shouldAllowMockingProtectedMethods();
+    //     $controller
+    //         ->makePartial()
+    //         ->shouldAllowMockingProtectedMethods();
 
-        $controller
-            ->shouldReceive('findOrFail')
-            ->withAnyArgs()
-            ->andReturn($this->video);
+    //     $controller
+    //         ->shouldReceive('findOrFail')
+    //         ->withAnyArgs()
+    //         ->andReturn($this->video);
         
-            $controller
-            ->shouldReceive('validate')
-            ->withAnyArgs()
-            ->andReturn([
-                'name' => 'test'
-            ]);
+    //         $controller
+    //         ->shouldReceive('validate')
+    //         ->withAnyArgs()
+    //         ->andReturn([
+    //             'name' => 'test'
+    //         ]);
         
-        $controller
-            ->shouldReceive('rulesUpdate')
-            ->withAnyArgs()
-            ->andReturn([]);
+    //     $controller
+    //         ->shouldReceive('rulesUpdate')
+    //         ->withAnyArgs()
+    //         ->andReturn([]);
 
-        $controller
-            ->shouldReceive('handleRelations')
-            ->once()
-            ->andThrow(new TestException());
+    //     $controller
+    //         ->shouldReceive('handleRelations')
+    //         ->once()
+    //         ->andThrow(new TestException());
 
-        /** @var \Mockery\MockInterface|\Mockery\LegacyMockInterface|Request $request */
-        $request = \Mockery::mock(Request::class);
+    //     /** @var \Mockery\MockInterface|\Mockery\LegacyMockInterface|Request $request */
+    //     $request = \Mockery::mock(Request::class);
 
-        $request->shouldReceive('get')
-                ->withAnyArgs()
-                ->andReturnNull();
+    //     $request->shouldReceive('get')
+    //             ->withAnyArgs()
+    //             ->andReturnNull();
                 
-        $hasError = false;
+    //     $hasError = false;
 
-        try {
-            $controller->update($request, 1);
-        } catch (TestException $exception) {
-            $this->assertCount(1, Video::all());
-            $hasError = true;
-        }
+    //     try {
+    //         $controller->update($request, 1);
+    //     } catch (TestException $exception) {
+    //         $this->assertCount(1, Video::all());
+    //         $hasError = true;
+    //     }
 
-        $this->assertTrue($hasError); // certify that catch was executed
-    }
+    //     $this->assertTrue($hasError); // certify that catch was executed
+    // }
 
     public function testDestroy()
     {
