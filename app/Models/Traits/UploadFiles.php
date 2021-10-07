@@ -5,6 +5,7 @@ namespace App\Models\Traits;
 use Exception;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Http\UploadedFile;
+use App\Models\Video;
 
 trait UploadFiles
 {
@@ -48,12 +49,13 @@ trait UploadFiles
     public static function extractFiles(array &$attributes = [])
     {
         $files = [];
+        
         foreach (self::$fileFields as $file) {
             if (isset($attributes[$file]) && $attributes[$file] instanceof UploadedFile) {
                 $files[] = $attributes[$file];
                 $attributes[$file] = $attributes[$file]->hashName();
             }
-            return $files;
         }
+        return $files;
     }
 }

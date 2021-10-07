@@ -11,7 +11,7 @@ class UploadFilesStub extends Model
 
     // protected $table = 'upload_file_stubs';
     // protected $fillable = ['name', 'file1', 'file2'];
-    // protected static $fileFields = ['file1', 'file2'];
+    protected static $fileFields = ['file1', 'file2'];
 
     // public static function makeTable()
     // {
