@@ -32,8 +32,8 @@ class Video extends Model
         'year_launched' => 'integer',
         'duration' => 'integer'
     ];
-    
-    public static $fileFields = ['film', 'banner', 'trailer'];
+
+    public static $fileFields = ['video_file'];
 
     public static function create(array $attributes = [])
     {
