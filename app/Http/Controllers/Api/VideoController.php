@@ -24,8 +24,7 @@ class VideoController extends BasicCrudController
                 'required', // style for merging at addRuleIfGenreHasCategories()
                 'array',
                 'exists:genres,id,deleted_at,NULL'
-            ],
-            'video_file' => 'required'
+            ]
         ];
     }
 
