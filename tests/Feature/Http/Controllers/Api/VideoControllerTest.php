@@ -163,6 +163,16 @@ class VideoControllerTest extends TestCase
         $this->assertInvalidationInStoreAction($data, 'exists');
         $this->assertInvalidationInUpdateAction($data, 'exists');
     }
+
+    // public function testInvalidationVideoField()
+    // {
+    //     $this->assertInvalidationFile(
+    //         'video_file',
+    //         'mp4',
+    //         12,
+    //         'mimetypes', ['values' => 'video/mp4']
+    //     );
+    // }
     
     public function testSave()
     {
