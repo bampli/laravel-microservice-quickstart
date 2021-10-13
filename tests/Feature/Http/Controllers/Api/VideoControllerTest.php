@@ -19,6 +19,14 @@ use Tests\Traits\TestSaves;
 use Tests\Traits\TestValidations;
 use Tests\Traits\TestUploads;
 
+// THESE TESTS WERE SPLIT INTO "VideoController" FOLDER:
+// Tests\Feature\Http\Controllers\Api\VideoController
+// - BaseVideoControllerTestCase
+// - VideoControllerCrudTest
+// - VideoControllerUploadsTest
+
+// They are kept here just for documentation.
+
 class VideoControllerTest extends TestCase
 {
     use DatabaseMigrations, TestValidations, TestSaves, TestUploads;

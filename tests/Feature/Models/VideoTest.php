@@ -12,6 +12,14 @@ use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Support\Str;
 use Tests\TestCase;
 
+// THESE TESTS WERE SPLIT INTO "Video" FOLDER:
+// Tests\Feature\Models\Video
+// - BaseVideoTestCase
+// - VideoCrudTest
+// - VideoUploadTest
+
+// They are kept here just for documentation.
+
 class VideoTest extends TestCase
 {
     use DatabaseMigrations;
