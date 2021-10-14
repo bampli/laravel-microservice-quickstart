@@ -46,7 +46,6 @@ trait UploadFiles
 
     public function deleteOldFiles()
     {
-        //dump($this->oldFiles);
         $this->deleteFiles($this->oldFiles);
     }
 
