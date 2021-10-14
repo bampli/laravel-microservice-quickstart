@@ -8,19 +8,20 @@ use Illuminate\Support\Arr;
 
 trait UploadFiles
 {
-    protected $oldFiles = [];
+    public $oldFiles = [];
 
     protected abstract function uploadDir();
 
-    protected static function bootUploadFiles(){
+    protected static function bootUploadFiles()
+    {
         static::updating(function(Model $model){
             $fieldsUpdated = array_keys($model->getDirty());
-            $filesUpdated = array_intersect($fieldsUpdated, self::fileFields);
+            $filesUpdated = array_intersect($fieldsUpdated, self::$fileFields);
             // Filter null values
-            $filesFiltered = Arr::where($filesUpdated, function($fileField) use($model) {
-                return $model->getOriginal($fileField); // return if not null
+            $filesFiltered = Arr::where($filesUpdated, function($fileField) use($model){
+                return $model->getOriginal($fileField); // !== null; return if not null
             });
-            $model->oldFiles = array_map(function ($fileField) use($model) {
+            $model->oldFiles = array_map(function ($fileField) use ($model) {
                 return $model->getOriginal($fileField);
             }, $filesFiltered);
         });
@@ -45,6 +46,7 @@ trait UploadFiles
 
     public function deleteOldFiles()
     {
+        //dump($this->oldFiles);
         $this->deleteFiles($this->oldFiles);
     }
 
