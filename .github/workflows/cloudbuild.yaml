@@ -18,8 +18,8 @@ jobs:
         env:
           GOOGLE_CLOUD_PROJECT_ID: $PROJECT_ID
           GOOGLE_CLOUD_KEY_FILE: service-account-storage.json
-          GOOGLE_CLOUD_STORAGE_BUCKET: code-micro-videos1
-          GOOGLE_CLOUD_STORAGE_API_URI: https://storage.cloud.google.com/code-micro-videos1
+          GOOGLE_CLOUD_STORAGE_BUCKET: bampli-video
+          GOOGLE_CLOUD_STORAGE_API_URI: https://storage.googleapis.com/bampli-video
           TESTING_PROD: true
 
       # - name: "Chown in /var/www"
