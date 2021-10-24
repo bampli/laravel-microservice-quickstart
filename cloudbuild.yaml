@@ -14,12 +14,12 @@ steps:
 - id: "Rodando docker-compose"
   name: 'gcr.io/$PROJECT_ID/docker-compose:1.28.2'
   args: ['-f','docker-compose.prod.gc.yaml','up','-d']
-  # env:
-  #   - GOOGLE_CLOUD_PROJECT_ID=$PROJECT_ID
-  #   - GOOGLE_CLOUD_KEY_FILE=service-account-storage.json
-  #   - GOOGLE_CLOUD_STORAGE_BUCKET=bampli-video
-  #   - GOOGLE_CLOUD_STORAGE_API_URI=https://storage.googleapis.com/bampli-video
-  #   - TESTING_PROD=true
+  env:
+    - GOOGLE_CLOUD_PROJECT_ID=$PROJECT_ID
+    - GOOGLE_CLOUD_KEY_FILE=service-account-storage.json
+    - GOOGLE_CLOUD_STORAGE_BUCKET=bampli-video
+    - GOOGLE_CLOUD_STORAGE_API_URI=https://storage.googleapis.com/bampli-video
+    - TESTING_PROD=true
 
 - id: "Rodando composer"
   name: 'gcr.io/cloud-builders/docker'
