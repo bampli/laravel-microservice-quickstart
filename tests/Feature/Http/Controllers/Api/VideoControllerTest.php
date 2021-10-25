@@ -179,7 +179,7 @@ class VideoControllerTest extends TestCase
         $this->assertInvalidationFile(
             'video_file',
             'mp4',
-            12,
+            Video::VIDEO_FILE_MAX_SIZE,
             'mimetypes', ['values' => 'video/mp4']
         );
     }
