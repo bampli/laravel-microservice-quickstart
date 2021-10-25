@@ -13,6 +13,11 @@ class Video extends Model
     const NO_RATING = 'L';
     const RATING_LIST = [self::NO_RATING, '10', '12', '14', '16', '18'];
 
+    const THUMB_FILE_MAX_SIZE = 1024 * 5;           //  5 MB
+    const BANNER_FILE_MAX_SIZE = 1024 * 10;         // 10 MB
+    const TRAILER_FILE_MAX_SIZE = 1024 * 1024;      //  1 GB
+    const VIDEO_FILE_MAX_SIZE = 1024 * 1024 * 5;   //   5 GB
+
     protected $fillable = [
         'title',
         'description',
@@ -35,7 +40,7 @@ class Video extends Model
         'duration' => 'integer'
     ];
 
-    public static $fileFields = ['video_file', 'thumb_file'];
+    public static $fileFields = ['video_file', 'thumb_file', 'banner_file', 'trailer_file'];
 
     public static function create(array $attributes = [])
     {
