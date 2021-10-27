@@ -40,7 +40,20 @@ class CategoryControllerTest extends TestCase
         
         $response
             ->assertStatus(200)
-            ->assertJson([$this->category->toArray()]);
+            ->assertJson([
+                'meta' => ['per_page' => 15]
+            ])
+            ->assertJsonStructure([
+                'data' => [
+                    '*' => $this->serializedFields
+                ],
+                'links' => [],
+                'meta' => []
+            ]);
+        
+        $resource = CategoryResource::collection(collect([$this->category]));
+        //$resource = CategoryResource::collection([$this->category]); // also worked for me! why?
+        $this->assertResource($response, $resource);
     }
 
     public function testShow()

@@ -15,21 +15,9 @@ class CategoryController extends BasicCrudController
         'is_active' => 'boolean'
     ];
 
-    // public function index()
-    // {
-    //     $collection = parent::index();
-    //     return new CategoryCollection($collection);
-    //     //return CategoryResource::collection($collection);
-    // }
-
     protected function model()
     {
         return Category::class;
-    }
-
-    protected function resource()
-    {
-        return CategoryResource::class;
     }
 
     protected function rulesStore()
@@ -40,5 +28,15 @@ class CategoryController extends BasicCrudController
     protected function rulesUpdate()
     {
         return $this->rules;
+    }
+
+    protected function resourceCollection()
+    {
+        return $this->resource();
+    }
+
+    protected function resource()
+    {
+        return CategoryResource::class;
     }
 }
