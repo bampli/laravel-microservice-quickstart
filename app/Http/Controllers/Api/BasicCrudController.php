@@ -39,7 +39,9 @@ abstract class BasicCrudController extends Controller
 
     public function show($id)
     {
-        return $this->findOrFail($id);
+        $obj = $this->findOrFail($id);
+        $resource = $this->resource();
+        return new $resource($obj);
     }
 
     public function update(Request $request, $id)
@@ -48,7 +50,9 @@ abstract class BasicCrudController extends Controller
         $validatedData = $this->validate($request, $this->rulesUpdate());
         $obj->update($validatedData);
         $obj->refresh(); // added refresh to fix VideoControllerTest.TestSave()
-        return $obj;
+        $resource = $this->resource();
+        return new $resource($obj);
+        //return $obj;
     }
 
     public function destroy($id)
