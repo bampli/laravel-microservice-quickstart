@@ -13,11 +13,6 @@ class CategoryControllerStub extends BasicCrudController
         return CategoryStub::class;
     }
 
-    protected function resource()
-    {
-        return CategoryResource::class;
-    }
-
     protected function rulesStore()
     {
         return [
@@ -32,5 +27,15 @@ class CategoryControllerStub extends BasicCrudController
             'name' => 'required|max:255',
             'description' => 'nullable'
         ];
+    }
+
+    protected function resourceCollection()
+    {
+        return $this->resource();
+    }
+
+    protected function resource()
+    {
+        return CategoryResource::class;
     }
 }
