@@ -16,6 +16,15 @@ class CategoryControllerTest extends TestCase
     use DatabaseMigrations, TestValidations, TestSaves;
 
     private $category;
+    private $serializedFields = [
+        'id',
+        'name',
+        'description',
+        'is_active',
+        'created_at',
+        'updated_at',
+        'deleted_at'
+    ];
 
     protected function setUp():void
     {
@@ -26,7 +35,7 @@ class CategoryControllerTest extends TestCase
     public function testIndex()
     {
         $response = $this->get(route('categories.index'));
-
+        dd($response->content());
         $response
             ->assertStatus(200)
             ->assertJson([$this->category->toArray()]);
@@ -35,7 +44,7 @@ class CategoryControllerTest extends TestCase
     public function testShow()
     {
         $response = $this->get(route('categories.show', ['category' => $this->category->id]));
-
+        dd($response->content());
         $response
             ->assertStatus(200)
             ->assertJson($this->category->toArray());
@@ -69,7 +78,7 @@ class CategoryControllerTest extends TestCase
         ];
         $response = $this->assertStore($data, $data + ['description' => null, 'is_active' => true, 'deleted_at' => null]);
         $response->assertJsonStructure([
-            'created_at', 'updated_at'
+            'data' => $this->serializedFields
         ]);
 
         $data = [
