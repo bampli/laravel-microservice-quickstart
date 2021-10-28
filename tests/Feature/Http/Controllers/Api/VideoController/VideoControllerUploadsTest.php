@@ -8,13 +8,14 @@ use App\Models\Genre;
 use Illuminate\Foundation\Testing\TestResponse;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Arr;
+use Tests\Traits\TestResources;
 use Tests\Traits\TestSaves;
 use Tests\Traits\TestUploads;
 use Tests\Traits\TestValidations;
 
 class VideoControllerUploadsTest extends BaseVideoControllerTestCase
 {
-    use TestValidations, TestUploads;
+    use TestValidations, TestUploads, TestSaves;
     
     public function testInvalidationThumbField()
     {
@@ -99,16 +100,14 @@ class VideoControllerUploadsTest extends BaseVideoControllerTestCase
             Arr::except($files, ['thumb_file', "video_file"]) + $newFiles
         );
 
-        $id = $response->json('id');
-        $video = Video::find($id);
+        $video = Video::find($this->getIdFromResponse($response));
         \Storage::assertMissing($video->relativeFilePath($files['thumb_file']->hashName()));
         \Storage::assertMissing($video->relativeFilePath($files['video_file']->hashName()));
     }
 
     protected function assertFilesOnPersist(TestResponse $response, $files)
     {
-        $id = $response->json('id');
-        $video = Video::find($id);
+        $video = Video::find($this->getIdFromResponse($response));
         $this->assertFilesExistInStorage($video, $files);
     }
 
