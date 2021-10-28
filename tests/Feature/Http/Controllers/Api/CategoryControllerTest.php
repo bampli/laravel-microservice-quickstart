@@ -51,8 +51,9 @@ class CategoryControllerTest extends TestCase
                 'meta' => []
             ]);
         
-        $resource = CategoryResource::collection(collect([$this->category]));
-        //$resource = CategoryResource::collection([$this->category]); // also worked for me! why?
+        $resource1 = CategoryResource::collection(collect([$this->category]));
+        $resource = CategoryResource::collection([$this->category]); // also works at this version
+        $this->assertEquals($resource, $resource1);
         $this->assertResource($response, $resource);
     }
 
