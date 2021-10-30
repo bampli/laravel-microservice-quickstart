@@ -28,7 +28,9 @@ abstract class BaseVideoControllerTestCase extends TestCase
         'trailer_file',
         'created_at',
         'updated_at',
-        'deleted_at'
+        'deleted_at',
+        'categories_id',
+        'genres_id'
     ];
 
     protected function setUp():void

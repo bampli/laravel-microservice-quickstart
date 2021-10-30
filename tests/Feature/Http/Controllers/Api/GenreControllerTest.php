@@ -28,7 +28,8 @@ class GenreControllerTest extends TestCase
         'is_active',
         'created_at',
         'updated_at',
-        'deleted_at'
+        'deleted_at',
+        'categories_id'
     ];
 
     protected function setUp():void
@@ -53,8 +54,11 @@ class GenreControllerTest extends TestCase
                 'links' => [],
                 'meta' => []
             ]);
-        
+
+        //dump($response->getData(true));
+        $this->genre->is_active = true; // assure is_active is there
         $resource = GenreResource::collection([$this->genre]);
+        //dump($resource);
         $this->assertResource($response, $resource);
     }
 
