@@ -13,6 +13,20 @@ jobs:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Setup gcloud CLI
+        uses: google-github-actions/setup-gcloud@master
+        with:
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+          service_account_key: ${{ secrets.GCP_SA_KEY }}
+          export_default_credentials: true
+      - name: Generate service-account-storage.json
+        run: |-
+          gcloud kms decrypt \
+          --ciphertext-file=./storage/credentials/google/service-account-storage.json.enc \
+          --plaintext-file=./storage/credentials/google/service-account-storage.json \
+          --location=global \
+          --keyring=testing \
+          --key=service-account
       - name: "Rodando docker-compose"
         run: docker-compose -f docker-compose.prod.yaml up -d app db redis nginx
         env:
