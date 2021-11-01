@@ -50,6 +50,8 @@ class VideoControllerCrudTest extends BaseVideoControllerTestCase
         
         $resource = new VideoResource(Video::find($this->getIdFromResponse($response)));
         $this->assertResource($response, $resource);
+
+        //$this->assertIfFilesUrlExist($this->video, $response);
     }
 
     public function testInvalidationRequired()
