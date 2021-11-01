@@ -6,6 +6,7 @@ use App\Models\Category;
 use App\Models\Video;
 use App\Models\Genre;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
+use Illuminate\Foundation\Testing\TestResponse;
 use Tests\TestCase;
 
 abstract class BaseVideoControllerTestCase extends TestCase
@@ -22,15 +23,34 @@ abstract class BaseVideoControllerTestCase extends TestCase
         'opened',
         'rating',
         'duration',
-        'video_file',
-        'thumb_file',
-        'banner_file',
-        'trailer_file',
+        'video_file_url',
+        'thumb_file_url',
+        'banner_file_url',
+        'trailer_file_url',
         'created_at',
         'updated_at',
         'deleted_at',
-        'categories_id',
-        'genres_id'
+        'categories' => [
+            '*' => [
+                'id',
+                'name',
+                'description',
+                'is_active',
+                'created_at',
+                'updated_at',
+                'deleted_at'
+            ]
+        ],
+        'genres' => [
+            '*' => [
+                'id',
+                'name',
+                'is_active',
+                'created_at',
+                'updated_at',
+                'deleted_at'
+            ]
+        ]
     ];
 
     protected function setUp():void
@@ -51,5 +71,20 @@ abstract class BaseVideoControllerTestCase extends TestCase
             'categories_id' => [$category->id],
             'genres_id' => [$genre->id]
         ];
+    }
+
+    protected function assertIfFilesUrlExist(Video $video, TestResponse $response)
+    {
+        $fileFields = Video::$fileFields;
+        $data = $response->json('data');
+        $data = array_key_exists(0, $data) ? $data[0] : $data;
+        foreach ($fileFields as $field) {
+            $file = $video->{$field};
+            dump($data, $field, $data[$field . '_url']);
+            $this->assertEquals(
+                \Storage::url($video->relativeFilePath($file)),
+                $data[$field . '_url']
+            );
+        }
     }
 }
