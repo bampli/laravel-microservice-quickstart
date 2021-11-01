@@ -3,6 +3,7 @@
 namespace Tests\Feature\Http\Controllers\Api;
 
 use App\Http\Controllers\Api\BasicCrudController;
+use App\Http\Resources\CategoryResource;
 use App\Models\Category;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Foundation\Testing\DatabaseMigrations;
@@ -36,13 +37,13 @@ class BasicCrudControllerTest extends TestCase
         parent::tearDown();
     }
 
-    // public function testIndex()
-    // {
-    //     /** @var CategoryStub $category */
-    //     $category = CategoryStub::create(['name' => 'test_name', 'description' => 'test_description']);
-    //     $result = $this->controller->index()->toArray();
-    //     $this->assertEquals([$category->toArray()], $result);
-    // }
+    public function testIndex()
+    {
+        /** @var CategoryStub $category */
+        $category = CategoryStub::create(['name' => 'test_name', 'description' => 'test_description']);
+        $result = $this->controller->index()->toArray($category);
+        $this->assertEquals([$category->toArray()], $result);
+    }
 
     public function testInvalidationDataInStore()
     {
@@ -56,21 +57,21 @@ class BasicCrudControllerTest extends TestCase
         $this->controller->store($request);
     }
 
-    // public function testStore()
-    // {
-    //     /** @var \Mockery\MockInterface|\Mockery\LegacyMockInterface $request */
-    //     $request = \Mockery::mock(Request::class);
-    //     $request
-    //         ->shouldReceive('all')
-    //         ->once()
-    //         ->andReturn(['name' => 'test_name', 'description' => 'test_description']);
+    public function testStore()
+    {
+        /** @var \Mockery\MockInterface|\Mockery\LegacyMockInterface $request */
+        $request = \Mockery::mock(Request::class);
+        $request
+            ->shouldReceive('all')
+            ->once()
+            ->andReturn(['name' => 'test_name', 'description' => 'test_description']);
 
-    //     $obj = $this->controller->store($request);
-    //     $this->assertEquals(
-    //         CategoryStub::find(1)->toArray(),
-    //         $obj->toArray()
-    //     );
-    // }
+        $obj = $this->controller->store($request);
+        $this->assertEquals(
+            CategoryStub::find(1)->toArray(),
+            $obj->toArray($obj)
+        );
+    }
 
     public function testIfFindOrFailFetchModel()
     {
@@ -96,29 +97,30 @@ class BasicCrudControllerTest extends TestCase
         $reflectionMethod->invokeArgs($this->controller, [0]);
     }
 
-    // public function testShow()
-    // {
-    //     /** @var CategoryStub $category */
-    //     $category = CategoryStub::create(['name' => 'test_name', 'description' => 'test_description']);
-    //     $result = $this->controller->show($category->id);
-    //     $this->assertEquals($result->toArray(), CategoryStub::find(1)->toArray());
-    // }
+    public function testShow()
+    {
+        /** @var CategoryStub $category */
+        $category = CategoryStub::create(['name' => 'test_name', 'description' => 'test_description']);
+        $result = $this->controller->show($category->id);
+        //dump($result);
+        $this->assertEquals($result->toArray($category), CategoryStub::find(1)->toArray());
+    }
 
-    // public function testUpdate()
-    // {
-    //     /** @var CategoryStub $category */
-    //     $category = CategoryStub::create(['name' => 'test_name', 'description' => 'test_description']);
+    public function testUpdate()
+    {
+        /** @var CategoryStub $category */
+        $category = CategoryStub::create(['name' => 'test_name', 'description' => 'test_description']);
         
-    //     /** @var \Mockery\MockInterface|\Mockery\LegacyMockInterface $request */
-    //     $request = \Mockery::mock(Request::class);
-    //     $request
-    //         ->shouldReceive('all')
-    //         ->once()
-    //         ->andReturn(['name' => 'test_name_changed', 'description' => 'test_description_changed']);
+        /** @var \Mockery\MockInterface|\Mockery\LegacyMockInterface $request */
+        $request = \Mockery::mock(Request::class);
+        $request
+            ->shouldReceive('all')
+            ->once()
+            ->andReturn(['name' => 'test_name_changed', 'description' => 'test_description_changed']);
 
-    //     $result = $this->controller->update($request, $category->id);
-    //     $this->assertEquals($result->toArray(), CategoryStub::find(1)->toArray());
-    // }
+        $result = $this->controller->update($request, $category->id);
+        $this->assertEquals($result->toArray($category), CategoryStub::find(1)->toArray());
+    }
 
     public function testDestroy()
     {
